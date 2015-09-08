@@ -87,6 +87,7 @@ class MenuController extends Controller
     }
     public function BusBook()
     {
+	file_put_contents('log.txt',"post in");
         error_log("get post");
         if (!isset($_GET['echostr'])) 
         {
