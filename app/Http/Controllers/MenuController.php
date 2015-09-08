@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Models\BusBook;
+use Input;
 class MenuController extends Controller
 {
     
@@ -15,11 +16,10 @@ class MenuController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(R)
     {
-         file_put_contents('log.txt',"get test ",FILE_APPEND);
+        
         $signature = Input::get('signature');
-        file_put_contents('log.txt',$signature,FILE_APPEND);
             $timestamp = Input::get('timestamp');
             $nonce     = Input::get('nonce');
 
@@ -109,31 +109,9 @@ class MenuController extends Controller
     public function BusBook()
     {
 	
-        error_log("get post");
-        if (Input::has('echostr'))
-        {
-            file_put_contents('log.txt',"post test ",FILE_APPEND);
-            $signature = Input::get('signature');
-            $timestamp = Input::get('timestamp');
-            $nonce     = Input::get('nonce');
-
-            
-            $token = 'lureroad';
-
-            
-            $our_signature = array($token, $timestamp, $nonce);
-            sort($our_signature, SORT_STRING);
-            $our_signature = implode($our_signature);
-            $our_signature = sha1($our_signature);
-
-            
-            if ($our_signature != $signature) {
-                return false;
-                
-            }
-            else
-                return Input::get('echostr');
-
-        }
+        $message = file_get_contents('php://input');
+        $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
+            return $message->Content;
+        
     }
 }
