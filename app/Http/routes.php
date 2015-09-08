@@ -15,4 +15,4 @@ Route::get('test', function () {
     return view('welcome');
 });
 
-Route::any('bus-book','MenuController@BusBook');
+Route::resource('bus-book','MenuController');

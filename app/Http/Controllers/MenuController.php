@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class MenuController extends Controller
 {
-    protected $Token = "lureroad";
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +17,28 @@ class MenuController extends Controller
      */
     public function index()
     {
-        //
+         file_put_contents('log.txt',"get test ",FILE_APPEND);
+        $signature = Input::get('signature');
+        file_put_contents('log.txt',$signature,FILE_APPEND);
+            $timestamp = Input::get('timestamp');
+            $nonce     = Input::get('nonce');
+
+            
+            $token = 'lureroad';
+
+            
+            $our_signature = array($token, $timestamp, $nonce);
+            sort($our_signature, SORT_STRING);
+            $our_signature = implode($our_signature);
+            $our_signature = sha1($our_signature);
+
+            
+            if ($our_signature != $signature) {
+                return false;
+                
+            }
+            else
+                return Input::get('echostr');
     }
 
     /**
@@ -89,7 +110,7 @@ class MenuController extends Controller
     {
 	
         error_log("get post");
-        if (Input::get('echostr')) 
+        if (Input::has('echostr'))
         {
             file_put_contents('log.txt',"post test ",FILE_APPEND);
             $signature = Input::get('signature');
