@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/bus-book','MenuController@BusBook');
+Route::any('bus-book','MenuController@BusBook');

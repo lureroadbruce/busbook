@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class MenuController extends Controller
 {
-protected $Token = "lureroad";
+    protected $Token = "lureroad";
     /**
      * Display a listing of the resource.
      *
@@ -87,25 +87,26 @@ protected $Token = "lureroad";
     }
     public function BusBook()
     {
-if (!isset($_GET['echostr'])) 
-{
+        error_log("get post");
+        if (!isset($_GET['echostr'])) 
+        {
 
 
 
-$echoStr = $_GET["echostr"];
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
-        $token = TOKEN;
-        $tmpArr = array($token, $timestamp, $nonce);
-        sort($tmpArr);
-        $tmpStr = implode($tmpArr);
-        $tmpStr = sha1($tmpStr);
-        if($tmpStr == $signature){
-            echo $echoStr;
-            exit;
+            $echoStr = $_GET["echostr"];
+            $signature = $_GET["signature"];
+            $timestamp = $_GET["timestamp"];
+            $nonce = $_GET["nonce"];
+            $token = TOKEN;
+            $tmpArr = array($token, $timestamp, $nonce);
+            sort($tmpArr);
+            $tmpStr = implode($tmpArr);
+            $tmpStr = sha1($tmpStr);
+            if($tmpStr == $signature){
+                echo $echoStr;
+                exit;
+            }
+
         }
-
-}
     }
 }
