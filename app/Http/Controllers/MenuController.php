@@ -87,25 +87,31 @@ class MenuController extends Controller
     }
     public function BusBook()
     {
-	file_put_contents('log.txt',"post in");
+	
         error_log("get post");
-        if (!isset($_GET['echostr'])) 
+        if (Input::get('echostr')) 
         {
+            file_put_contents('log.txt',"post test ",FILE_APPEND);
+            $signature = Input::get('signature');
+            $timestamp = Input::get('timestamp');
+            $nonce     = Input::get('nonce');
+
             
-            $echoStr = $_GET["echostr"];
-            $signature = $_GET["signature"];
-            $timestamp = $_GET["timestamp"];
-            $nonce = $_GET["nonce"];
-            $token = $this->Token;
-            $tmpArr = array($token, $timestamp, $nonce);
-            sort($tmpArr);
-            $tmpStr = implode($tmpArr);
-            $tmpStr = sha1($tmpStr);
-            if($tmpStr == $signature){
-                header('content-type:text');
-                echo $echoStr;
-                exit;
+            $token = 'lureroad';
+
+            
+            $our_signature = array($token, $timestamp, $nonce);
+            sort($our_signature, SORT_STRING);
+            $our_signature = implode($our_signature);
+            $our_signature = sha1($our_signature);
+
+            
+            if ($our_signature != $signature) {
+                return false;
+                
             }
+            else
+                return Input::get('echostr');
 
         }
     }
