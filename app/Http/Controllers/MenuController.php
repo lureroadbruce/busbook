@@ -98,6 +98,7 @@ class MenuController extends Controller
     }
     public function SaveEmail(Request $request)
     {
+        error_log("save");
         $users = User::get();
         foreach($users as $user)
         {

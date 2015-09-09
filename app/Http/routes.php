@@ -21,4 +21,4 @@ Route::get('/','MenuController@index');
 Route::get('bus-book','MenuController@BusBook');
 Route::post('bus-book/save','MenuController@StoreBook');
 Route::get('email','MenuController@AddEmail');
-Route::post('email/save','Menucontroller@SaveEmail');
+Route::post('email/save','MenuController@SaveEmail');
