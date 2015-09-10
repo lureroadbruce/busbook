@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Input;
 
 class WeixinController extends Controller
 {
@@ -107,9 +108,10 @@ class WeixinController extends Controller
     }
     public function getMessage(Request $request)
     {
-        error_log("get message");
+
         $message = $request->instance()->getContent();
         $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-        error_log($message->Content);
+        return View::make('weixin.message')->with('message', $message);
+
     }
 }
