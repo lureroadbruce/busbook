@@ -176,28 +176,5 @@ class MenuController extends Controller
         return Redirect::back()->withInput()->withErrors('您已完成预约！');
          
     }
-    public function check()
-    {
-        $signature = Input::get('signature');
-        file_put_contents('log.txt',$signature,FILE_APPEND);
-            $timestamp = Input::get('timestamp');
-            $nonce     = Input::get('nonce');
-
-            
-            $token = 'lureroad';
-
-            
-            $our_signature = array($token, $timestamp, $nonce);
-            sort($our_signature, SORT_STRING);
-            $our_signature = implode($our_signature);
-            $our_signature = sha1($our_signature);
-
-            
-            if ($our_signature != $signature) {
-                return false;
-                
-            }
-            else
-                return Input::get('echostr');
-    }
+    
 }

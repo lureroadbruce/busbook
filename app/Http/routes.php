@@ -22,3 +22,5 @@ Route::get('bus-book','MenuController@BusBook');
 Route::post('bus-book/save','MenuController@StoreBook');
 Route::get('email','MenuController@AddEmail');
 Route::post('email/save','MenuController@SaveEmail');
+Route::post('weixin','WeixinController@getMessage');
+Route::get('weixin','WeixinController@index');
