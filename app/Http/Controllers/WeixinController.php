@@ -111,10 +111,22 @@ class WeixinController extends Controller
 
         $message = $request->instance()->getContent();
         $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-        if(strpos($message->Content,'test')!==false)
+        if($message->MsgType == 'text')
         {
-            $message->Content = 'get key word test';
-        } 
+            if(strpos($message->Content,'test')!==false)
+            {
+                $message->Content = 'get key word test';
+                error_log("from user id:"$message->FromUserName);
+            } 
+            
+        }
+        elseif($message->MsgType == 'event')
+        {
+            if($message->Event == 'VIEW')
+            {
+                error_log("get view".$message->EventKey);
+            }
+        }
         return view('weixin.message')->with('message', $message);
 
     }
