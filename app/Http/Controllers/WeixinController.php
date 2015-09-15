@@ -111,7 +111,11 @@ class WeixinController extends Controller
 
         $message = $request->instance()->getContent();
         $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-        return View::make('weixin.message')->with('message', $message);
+if(strpos($message->Content,'班车预订')!==false)
+{
+$message->Content = '是否需要查看班车预订情况?';
+} 
+       return view('weixin.message')->with('message', $message);
 
     }
 }
