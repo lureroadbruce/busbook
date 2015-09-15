@@ -111,11 +111,43 @@ class WeixinController extends Controller
 
         $message = $request->instance()->getContent();
         $message = simplexml_load_string($message, 'SimpleXMLElement', LIBXML_NOCDATA);
-if(strpos($message->Content,'班车预订')!==false)
-{
-$message->Content = '是否需要查看班车预订情况?';
-} 
-       return view('weixin.message')->with('message', $message);
+        if(strpos($message->Content,'test')!==false)
+        {
+            $message->Content = 'get key word test';
+        } 
+        return view('weixin.message')->with('message', $message);
 
+    }
+    public function setButton()
+    {
+        
+        $data = '{
+     "button":[
+     {	
+          "type":"click",
+          "name":"今日歌曲",
+          "key":"V1001_TODAY_MUSIC"
+      },
+      {
+           "name":"菜单",
+           "sub_button":[
+           {	
+               "type":"view",
+               "name":"搜索",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"视频",
+               "url":"http://v.qq.com/"
+            },
+            {
+               "type":"click",
+               "name":"赞一下我们",
+               "key":"V1001_GOOD"
+            }]
+       }]
+ }';
+        return view('weixin.setbutton')->with('data',$data);
     }
 }

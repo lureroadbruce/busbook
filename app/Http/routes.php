@@ -24,3 +24,4 @@ Route::get('email','MenuController@AddEmail');
 Route::post('email/save','MenuController@SaveEmail');
 Route::post('weixin','WeixinController@getMessage');
 Route::get('weixin','WeixinController@index');
+Route::get('setbutton','WeixinController@setButton');
