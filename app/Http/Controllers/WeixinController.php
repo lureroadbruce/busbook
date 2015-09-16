@@ -115,7 +115,7 @@ class WeixinController extends Controller
         {
             if(strpos($message->Content,'test')!==false)
             {
-                $message->Content = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb4f7bc9204383c8b&redirect_uri=http%3a%2f%2fweixin.knowsurface.com%2f&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+                $message->Content = URL('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb4f7bc9204383c8b&redirect_uri=http%3a%2f%2fweixin.knowsurface.com%2f&response_type=code&scope=snsapi_base&state=123#wechat_redirect');
             } 
             
         }

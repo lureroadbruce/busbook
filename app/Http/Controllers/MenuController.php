@@ -22,9 +22,24 @@ class MenuController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('menu/index');
+        if($request->has('code'))
+        {
+            error_log("get code".$request->input('code'));
+            $code = $request->input('code');
+            $ch = curl_init();
+            // 2. 设置选项，包括URL
+            curl_setopt($ch, CURLOPT_URL, "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxb4f7bc9204383c8b&secret=e52eedfbc0baababb308b8fa8096d85b&code=".$code."&grant_type=authorization_code");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            // 3. 执行并获取HTML文档内容
+            $output = curl_exec($ch);
+            error_log("get back".$output);
+            // 4. 释放curl句柄
+            curl_close($ch);
+        }
+        //return view('menu/index');
     }
 
     /**
